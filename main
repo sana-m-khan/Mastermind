@@ -1,0 +1,27 @@
+import java.util.Scanner;
+public class Main
+{
+   public static void main(String[] args) {
+   
+    Scanner s = new Scanner(System.in);
+    String input = "";
+    int guess = 0;
+    Mastermind m = new Mastermind();
+      //Comment out the following line after testing is complete
+    System.out.println(m);
+    
+    //Loop the game until you win or run out of guesses
+    while (!m.isWin(input) && ++guess < 8) {
+      //Ask for input
+      System.out.print("Enter your 4 letter guess (a-f): ");
+      //Get the input      
+      input = s.nextLine();
+      //Get the number of near and exact matches
+      System.out.println(m.reportMatches(input));
+     
+    }
+    
+    System.out.println(m.isWin(input) ? "You win!" : ("You lose! The code was " + m));
+
+  }
+}
