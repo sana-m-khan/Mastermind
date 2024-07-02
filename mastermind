@@ -1,0 +1,81 @@
+import java.util.Scanner;
+public class Mastermind
+{
+    private char[] solution;
+    private char[] tempSol;
+    private char[] guess;
+
+    public Mastermind() {
+        solution = new char[4];
+        //Comment this after testing
+        solution[0] = 'a';
+        solution[1] = 'c';
+        solution[2] = 'b';
+        solution[3] = 'f';
+
+        tempSol = new char[4];
+        guess = new char[4];
+
+        /**for (int i = 0; i < 4; i++) {
+        solution[i] = (char) (Math.random() * 6 + 97);
+        }*/
+
+    }
+
+    public boolean isWin(String in) {
+        if (in.length() < 4) {
+            return false;    
+        }
+        for(int i = 0; i < in.length();i++) {
+            if(solution[i] != in.charAt(i))
+                return false;
+        }
+        return true;
+    }
+
+    public String reportMatches(String in) {
+        for (int i = 0; i < 4; i++) {
+            tempSol[i] = solution[i];
+        }
+        for (int i = 0; i < in.length(); i++) {
+            guess[i] = in.charAt(i);
+        }
+        return "Exact Matches: " + exactMatches() + " Near Matches: " + nearMatches();  
+    }
+
+    public int exactMatches() {
+        int exact = 0;
+        for (int i = 0; i < 4; i++) {
+            if (tempSol[i] == guess[i]) {
+                tempSol[i] = 0;
+                guess[i] = 1;
+                exact++;
+            }
+
+        }
+        return exact;
+    }
+
+    public int nearMatches() {
+        int nearMatch = 0;
+        for (int i = 0; i < 4; i++) {
+            for (int j = 0; j < 4; j++) {
+                if (guess[i] == tempSol[j]) {
+                    nearMatch++;
+                    guess[i] = 0;
+                    tempSol[j] = 1; 
+                }
+            }
+        }
+        return nearMatch;
+    }
+
+    public String toString() {
+        String sol = "";
+        for (int i = 0; i < 4; i++) {
+            sol += solution[i] + " ";
+        }
+        return sol;
+    }
+
+}
